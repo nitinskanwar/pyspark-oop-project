@@ -1,0 +1,8 @@
+{
+    "spark_conf" : {
+         "master" : "local[*]",
+         "app_name" : "sales"
+    },
+    "log" : {
+        "level" : "WARN"}
+}
