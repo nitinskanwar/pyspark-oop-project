@@ -1,0 +1,26 @@
+{
+    "count": 64,
+    "schema": {
+        "fields": [
+            {
+                "metadata": {},
+                "name": "product_id",
+                "nullable": true,
+                "type": "string"
+            },
+            {
+                "metadata": {},
+                "name": "product_description",
+                "nullable": true,
+                "type": "string"
+            },
+            {
+                "metadata": {},
+                "name": "product_category",
+                "nullable": true,
+                "type": "string"
+            }
+        ],
+        "type": "struct"
+    }
+}

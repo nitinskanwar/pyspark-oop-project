@@ -1,0 +1,20 @@
+{
+    "count": 137,
+    "schema": {
+        "fields": [
+            {
+                "metadata": {},
+                "name": "customer_id",
+                "nullable": true,
+                "type": "string"
+            },
+            {
+                "metadata": {},
+                "name": "loyalty_score",
+                "nullable": true,
+                "type": "integer"
+            }
+        ],
+        "type": "struct"
+    }
+}

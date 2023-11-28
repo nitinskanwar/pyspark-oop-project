@@ -4,5 +4,7 @@
          "app_name" : "sales"
     },
     "log" : {
-        "level" : "WARN"}
+        "level" : "WARN"},
+    "config": {
+        "deltalake": true    }
 }

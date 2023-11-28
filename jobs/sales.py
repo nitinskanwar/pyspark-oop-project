@@ -2,6 +2,7 @@ import json, os, re, sys, logging
 from typing import (
     Callable,
     Optional,
+    Any,
 )  # This has been added from Python 3 onwards to add type hints
 from pyspark.sql import SparkSession
 from pyspark.sql.dataframe import DataFrame
@@ -115,9 +116,7 @@ def showMySchema(df: DataFrame, file_name: str) -> None:
         _description_
     """
     if isinstance(df, DataFrame):
-        df.show()
-        df.printSchema()
-        print("Total rows : " + str(df.count()))
+        SparkClass(conf={}).debug_df(df, file_name)
 
 
 def transform_data(
@@ -141,11 +140,29 @@ def transform_data(
         _description_
     """
 
-    cleaned_transactions_df = clean_transformations(transactions_df)
-    cleaned_customer_df = clean_customer(customers_df)
-    showMySchema(cleaned_transactions_df)
-    showMySchema(cleaned_customer_df)
-    # showMySchema(products_df)
+    # clean_transformations(transactions_df)
+    # clean_customer(customers_df)
+    # clean_products(products_df)
+    create_temp_tables(
+        spark,
+        [
+            ("transactions", clean_transformations(transactions_df)),
+            ("customers", clean_customer(customers_df)),
+            ("products", clean_products(products_df)),
+        ],
+    )
+
+    export_result(
+        spark,
+        [
+            (
+                "transactions",
+                clean_transformations(transactions_df),
+            ),
+            ("customers", clean_customer(customers_df)),
+            ("products", clean_products(products_df)),
+        ],
+    )
 
 
 def clean_transformations(df: DataFrame) -> DataFrame:
@@ -173,6 +190,7 @@ def clean_transformations(df: DataFrame) -> DataFrame:
             .withColumn("price", col("price").cast("Integer"))
             .withColumn("time", date_format(col("date_of_purchase"), "HH:mm:ss"))
         )
+        showMySchema(transformed_df, "transactions_df.json")
         return transformed_df
 
 
@@ -191,7 +209,84 @@ def clean_customer(df: DataFrame) -> DataFrame:
     """
     if isinstance(df, DataFrame):
         clean_df = df.withColumn("loyalty_score", col("loyalty_score").cast("Integer"))
+        showMySchema(clean_df, "customer_df.json")
         return clean_df
+
+
+def clean_products(df: DataFrame) -> DataFrame:
+    """_summary_
+
+    Parameters
+    ----------
+    df : DataFrame
+        _description_
+
+    Returns
+    -------
+    DataFrame
+        _description_
+    """
+    if isinstance(df, DataFrame):
+        showMySchema(df, "products_df.json")
+        return df
+
+
+def create_temp_tables_kwargs(spark: SparkSession, **kwargs: Any) -> None:
+    """_summary_
+
+    Parameters
+    ----------
+    spark : SparkSession
+        _description_
+    """
+    kwargs["df"]["transactions"].createOrReplaceTempView("transactions")
+    kwargs["df"]["customers"].createOrReplaceTempView("customers")
+    kwargs["df"]["products"].createOrReplaceTempView("products")
+    print(spark.catalog.listTables())
+
+
+def create_temp_tables(spark: SparkSession, list_of_dfs: list) -> None:
+    """_summary_
+
+    Parameters
+    ----------
+    spark : SparkSession
+        _description_
+    list_of_dfs : list
+        _description_
+    """
+    new_list_of_dfs = [
+        (lambda tuple_of_df: SparkClass(conf={}).create_temp_tables(tuple_of_df))(
+            tuple_of_df
+        )
+        for tuple_of_df in list_of_dfs
+    ]
+    # debug_temp_tables = [
+    #     (lambda tuple_of_tables: SparkClass(conf={}).debug_tables(tuple_of_tables))(
+    #         tuple_of_tables
+    #     )
+    #     for tuple_of_tables in spark.catalog.listTables()
+    # ]
+
+
+def export_result(spark: SparkSession, list_of_dfs: list) -> None:
+    """_summary_
+
+    Parameters
+    ----------
+    spark : SparkSession
+        _description_
+    list_of_dfs : list
+        _description_
+    """
+    t = [
+        (
+            lambda x: SparkClass(
+                conf={"export": f"{project_path}/tmp/spark/delta/sales"}
+            ).export_data(x)
+        )(x)
+        for x in list_of_dfs
+    ]
 
 
 if __name__ == "__main__":

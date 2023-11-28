@@ -1,0 +1,44 @@
+{
+    "count": 4497,
+    "schema": {
+        "fields": [
+            {
+                "metadata": {},
+                "name": "customer_id",
+                "nullable": true,
+                "type": "string"
+            },
+            {
+                "metadata": {},
+                "name": "price",
+                "nullable": true,
+                "type": "integer"
+            },
+            {
+                "metadata": {},
+                "name": "product_id",
+                "nullable": true,
+                "type": "string"
+            },
+            {
+                "metadata": {},
+                "name": "date_of_purchase",
+                "nullable": true,
+                "type": "string"
+            },
+            {
+                "metadata": {},
+                "name": "date",
+                "nullable": true,
+                "type": "date"
+            },
+            {
+                "metadata": {},
+                "name": "time",
+                "nullable": true,
+                "type": "string"
+            }
+        ],
+        "type": "struct"
+    }
+}
