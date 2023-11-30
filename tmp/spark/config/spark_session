@@ -2,12 +2,16 @@
     "spark.version": "3.5.0",
     "spark.context": [
         [
+            "spark.app.id",
+            "local-1701360727626"
+        ],
+        [
             "spark.app.initial.file.urls",
             "file:///Users/nitinkanwar/.ivy2/jars/org.antlr_antlr4-runtime-4.9.3.jar,file:///Users/nitinkanwar/.ivy2/jars/io.delta_delta-spark_2.12-3.0.0.jar,file:///Users/nitinkanwar/.ivy2/jars/io.delta_delta-storage-3.0.0.jar"
         ],
         [
             "spark.app.startTime",
-            "1701202352203"
+            "1701360726660"
         ],
         [
             "spark.executor.id",
@@ -18,16 +22,8 @@
             "/Users/nitinkanwar/.ivy2/jars/io.delta_delta-spark_2.12-3.0.0.jar,/Users/nitinkanwar/.ivy2/jars/io.delta_delta-storage-3.0.0.jar,/Users/nitinkanwar/.ivy2/jars/org.antlr_antlr4-runtime-4.9.3.jar"
         ],
         [
-            "spark.app.initial.jar.urls",
-            "spark://nitins-mbp:52584/jars/io.delta_delta-spark_2.12-3.0.0.jar,spark://nitins-mbp:52584/jars/org.antlr_antlr4-runtime-4.9.3.jar,spark://nitins-mbp:52584/jars/io.delta_delta-storage-3.0.0.jar"
-        ],
-        [
             "spark.repl.local.jars",
             "file:///Users/nitinkanwar/.ivy2/jars/io.delta_delta-spark_2.12-3.0.0.jar,file:///Users/nitinkanwar/.ivy2/jars/io.delta_delta-storage-3.0.0.jar,file:///Users/nitinkanwar/.ivy2/jars/org.antlr_antlr4-runtime-4.9.3.jar"
-        ],
-        [
-            "spark.app.id",
-            "local-1701202353450"
         ],
         [
             "spark.driver.extraJavaOptions",
@@ -55,7 +51,7 @@
         ],
         [
             "spark.app.submitTime",
-            "1701202352025"
+            "1701360726457"
         ],
         [
             "spark.jars",
@@ -66,6 +62,10 @@
             "100"
         ],
         [
+            "spark.driver.port",
+            "63102"
+        ],
+        [
             "spark.master",
             "local[*]"
         ],
@@ -74,12 +74,12 @@
             "client"
         ],
         [
-            "spark.ui.showConsoleProgress",
-            "true"
+            "spark.app.initial.jar.urls",
+            "spark://nitins-mbp:63102/jars/org.antlr_antlr4-runtime-4.9.3.jar,spark://nitins-mbp:63102/jars/io.delta_delta-storage-3.0.0.jar,spark://nitins-mbp:63102/jars/io.delta_delta-spark_2.12-3.0.0.jar"
         ],
         [
-            "spark.driver.port",
-            "52584"
+            "spark.ui.showConsoleProgress",
+            "true"
         ],
         [
             "spark.files",

@@ -7,7 +7,7 @@ from typing import (
 from pyspark.sql import SparkSession
 from pyspark.sql.dataframe import DataFrame
 from pyspark import SparkContext
-from delta import configure_spark_with_delta_pip
+from delta import configure_spark_with_delta_pip, DeltaTable
 
 
 class SparkClass:

@@ -146,7 +146,7 @@ def transform_data(
     create_temp_tables(
         spark,
         [
-            ("transactions", clean_transformations(transactions_df)),
+            ("transactions", clean_transactions(transactions_df)),
             ("customers", clean_customer(customers_df)),
             ("products", clean_products(products_df)),
         ],
@@ -157,7 +157,7 @@ def transform_data(
         [
             (
                 "transactions",
-                clean_transformations(transactions_df),
+                clean_transactions(transactions_df),
             ),
             ("customers", clean_customer(customers_df)),
             ("products", clean_products(products_df)),
@@ -165,7 +165,7 @@ def transform_data(
     )
 
 
-def clean_transformations(df: DataFrame) -> DataFrame:
+def clean_transactions(df: DataFrame) -> DataFrame:
     """_summary_
 
     Parameters
